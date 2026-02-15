@@ -1,0 +1,182 @@
+//HTML Code:
+&lt;!DOCTYPE html&gt;
+&lt;html &gt;
+&lt;!--From https://codepen.io/frytyler/pen/EGdtg--&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;TITLE&lt;/title&gt;
+{% load static %}
+&lt;link href=&quot;{% static &#39;css/bootstrap.min.css&#39; %}&quot; rel=&quot;stylesheet&quot;
+&lt;link href=&#39;https://fonts.googleapis.com/css?family=Pacifico&#39; rel=&#39;stylesheet&#39;
+type=&#39;text/css&#39;&gt;
+&lt;link href=&#39;https://fonts.googleapis.com/css?family=Arimo&#39; rel=&#39;stylesheet&#39;
+type=&#39;text/css&#39;&gt;
+&lt;link href=&#39;https://fonts.googleapis.com/css?family=Hind:300&#39; rel=&#39;stylesheet&#39;
+type=&#39;text/css&#39;&gt;
+&lt;link
+href=&#39;https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&#39;
+rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
+&lt;style&gt;
+.back{
+background-image:url(&quot;{% static &#39;image/1.jpg&#39; %}&quot;);
+
+background-repeat:no-repeat;
+
+background-attachment: fixed;
+}
+.white{
+color:black;
+font-weight: 900;
+}
+.nspace{
+margin:15px 15px 30px 30px;
+padding:9px 10px;
+background: cyan;
+width:500px
+}
+.space{
+margin:10px 30px;
+padding:10px 10px;
+background:initial;
+width:500px
+}
+.gap{
+padding:10px 20px;
+}
+&lt;/style&gt;
+
+&lt;/head&gt;
+
+&lt;body class=&quot;back&quot;&gt;
+&lt;div&gt;
+
+&lt;div class=&quot;jumbotron&quot;&gt;
+&lt;h1 style=&quot;text-align:center&quot;&gt;PREDICTION OF CHRONIC RENAL
+DISEASE&lt;/h1&gt;
+
+&lt;/div&gt;
+&lt;!-- Main Input For Receiving Query to our ML --&gt;
+&lt;form class=&quot;form-group&quot; action=&quot;{% url &#39;predict&#39; %}&quot;method=&quot;post&quot;&gt;
+{% csrf_token %}
+&lt;div class=&quot;row&quot;&gt;
+&lt;div class=&quot;gap col-md-6 &quot;&gt;
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Blood Pressure&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Bp&quot; placeholder=&quot;Bp&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Specific Gravity&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Sg&quot; placeholder=&quot;Sg&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Albumin&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Al&quot; placeholder=&quot;Al&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Sugar&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Su&quot; placeholder=&quot;Su&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Red Blood Cells&lt;/label&gt;
+
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Rbc&quot; placeholder=&quot;Rbc&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Blood Urea&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Bu&quot; placeholder=&quot;Bu&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Serum Creatinine&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Sc&quot; placeholder=&quot;Sc&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&quot;gap col-md-6&quot;&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Sodium&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Sod&quot; placeholder=&quot;Sod&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Potasium&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Potasium&quot; placeholder=&quot;Potasium&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Hemoglobin&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Hemo&quot; placeholder=&quot;Hemo&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;White Blood Cell Count&lt;/label&gt;
+
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Wbcc&quot; placeholder=&quot;Wbcc&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Red Blood Cell Count&lt;/label&gt;
+
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Rbcc&quot; placeholder=&quot;Rbcc&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;label class=&quot;white&quot; for=&quot;&quot;&gt;Hypertension&lt;/label&gt;
+&lt;input type=&quot;number&quot; class=&quot;space form-control&quot; step=&quot;0.01&quot;
+
+name=&quot;Htn&quot; placeholder=&quot;Htn&quot; required=&quot;required&quot; /&gt;&lt;br&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;padding:2% 35%&quot;&gt;
+&lt;button type=&quot;submit&quot; class=&quot;btn btn-success btn-block&quot;
+style=&quot;width:350px;padding:20px&quot;&gt;Predict&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;/form&gt;
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;div style=&quot;background:yellow;padding:2% 40%&quot;&gt;
+{{ prediction_text }}
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+Django Deploy:
+from django.shortcuts import render
+from django.shortcuts import render, redirect
+import numpy as np
+import joblib
+model = joblib.load(&#39;C:/Users/SPIRO-
+PYTHON1/Desktop/ITPML04/kidney_django/kidney/rf.pkl&#39;)
+
+# Create your views here.
+def home(request):
+return render(request, &quot;index.html&quot;)
+
+def predict(request):
+if request.method == &quot;POST&quot;:
+int_features = [x for x in request.POST.values()]
+int_features = int_features[1:]
+print(int_features)
+final_features = [np.array(int_features)]
+print(final_features)
+prediction = model.predict(final_features)
+print(prediction)
+output = prediction[0]
+if output == 1:
+return render(request, &#39;index.html&#39;, {&quot;prediction_text&quot;:&quot;Affected By
+Chronic Kidney Disease&quot;})
+else:
+return render(request, &#39;index.html&#39;, {&quot;prediction_text&quot;:&quot;Not Affected By Kidney Disease&quot;})
+print(output)
+                                               
